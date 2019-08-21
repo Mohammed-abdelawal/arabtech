@@ -1,0 +1,37 @@
+{%load static%}
+{% load crispy_forms_tags %}
+<div class="invoice">
+        <div class="modal-header">
+            <h5 class="modal-title"> {{invoice.id}} - {{invoice.record}} - {{invoice.user.id}} </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" >&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form class="invoice-update">
+        <ul class="form-group">
+            {% for item in invoice_items %}
+            <li class="m-auto form-row">
+                <div class="m-auto">
+                    {{ item.product|as_crispy_field }}
+                </div>
+                <div class="m-auto">
+                    {{ item.quantity|as_crispy_field }}
+                </div>
+                <div class="m-auto">
+                    {{ item.delete|as_crispy_field }}
+                </div>
+            </li> 
+            {%endfor%}
+        </ul>
+        <input class=" btn btn-info btn-form profile-form-submit" width="130px" type="submit" value="Save">
+        </form>
+        
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
+    <button class="btn btn-primary"onclick="cart_order()"> Order Now </button>
+    <button class="btn btn-danger" onclick=""> Delete Invoice </button>
+    
+    </div>
+    </div>

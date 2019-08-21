@@ -1,0 +1,86 @@
+{%extends 'base.html'%}
+
+{%load static%}
+
+{%block style%}
+<link rel="stylesheet" href="{% static 'css/productsList.css'%}">
+{%endblock%}
+
+    {% block page%}
+	<br><br><br><br>
+	<section>
+			<div class="container py-3">
+			  <div class="card">
+				<div class="row ">
+				  <div class="col-md-3">
+					  <img src="{{partnerObject.logo.url}}" class="w-100">
+					</div>
+					<div class="col-md-8 px-3" style="padding: 20">
+					  <div class="card-block px-3">
+						<h4 class="card-title" style="margin-top: 20px">{{partnerObject.name}}</h4>
+						<p class="card-text">- Our Partner in {{partnerObject.field}} </p>
+						<p class="card-text">{{partnerObject.desc}}</p>
+						<a style="margin-bottom: 20px" href="{{partnerObject.site}}" target="blank" class="btn btn-outline-primary">{{partnerObject.name}} Online</a>
+					</div>
+					</div>
+		  
+				  </div>
+				</div>
+			  </div>
+			</div>	
+	</section>	
+
+	<h2 style="text-align: center">  {{partnerObject.name}} Products  </h2>
+{%if partnerProducts.0 %}
+<div class="container" style="margin-top: 100px">
+<div class="row">
+	{%for product_o in partnerProducts%}
+	
+	<div class="col-md-3 col-sm-6 " style="margin-top: 12px" >
+		<div class="product-grid6">
+			<div class="product-image6">
+				<a href="#">
+					<img
+						class="pic-1"
+						src="{{product_o.pic1.url}}">
+				</a>
+			</div>
+			<div class="product-content">
+				<h3 class="title"> 
+					<a href="#">{{product_o.name}}</a>
+				</h3>
+				<div class="price">{{product_o.price}} .EGP
+				</div>
+			</div>
+			<ul class="social">
+				<li>
+					<a href="{% url 'product' product_o.name %}" data-tip="Quick View">
+						<i class="fa fa-search"></i>
+					</a>
+				</li>
+				<li>
+					<a href="#" onclick="add_wish_item({{product_o.pk}},'{{product_o.name}}')" data-tip="Add to Wishlist">
+						<i class="fa fa-shopping-bag"></i>
+					</a>
+				</li>
+				<li>
+					<a href="#" onclick="add_item('{{product_o.name}}',{{product_o.pk}})" data-tip="Add to Cart">
+						<i class="fa fa-shopping-cart"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+
+	{%endfor%}
+	</div>
+</div>
+	
+	{%else%}
+	{{partnerObject.name}} don't have Products yet.
+	{%endif%}
+	
+	
+	
+{%endblock%}

@@ -1,0 +1,125 @@
+{%extends 'base.html'%}
+
+{%load static%}
+
+{%block style%}
+    <link rel="stylesheet" href="{% static 'css/product.css'%}">
+    {%endblock%}
+
+    {% block page%}
+
+        <!-- Single Product -->
+        <main>
+            <div class="container" style="margin-top: 110px">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card mb-10">
+                                <div class="card-body store-body">
+                                    <div class="product-info">
+                                        <div class="product-gallery">
+                                            {%if product.pic2 %}
+                                                <div class="product-gallery-thumbnails" style="padding: 10px">
+                                                    <ol class="thumbnails-list list-unstyled">
+                                                        <li><img src="{{product.pic1.url}}" alt="{{product.name}}"></li>
+                                                        <li><img src="{{product.pic2.url}}" alt="{{product.name}}"></li>
+                                                    </ol>
+                                                </div>
+                                                {%endif%}
+                                                <div class="product-gallery-featured">
+                                                    <img src="{{product.pic1.url}}" alt="">
+                                                </div>
+                                            </div>
+
+                                            <div class="product-seller-recommended">
+                                                {%if product.video %}
+                                                    <h3 class="mb-5">Product Video</h3>
+                                                    <div class="recommended-items card-deck">
+                                                        <iframe width="560" height="315" src="{{product.video}}" frameborder="1" allowfullscreen></iframe>
+                                                    </div>
+                                                    {%endif%}
+                                                    <!-- /.recommended-items-->
+                                                    <div class="product-description mb-5">
+                                                        <h2 class="mb-5">Description</h2>
+                                                        <p>{{product.desc}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-payment-details col-lg-6">
+                                                    <h4 class="product-title mb-2">{{product.name}}</h4>
+
+                                                    <h4 class="product-price">
+                                                        {%if product.discount == 0 %}
+                                                            Egp
+                                                            {{product.price}}
+                                                            {%else%}
+                                                            Egp
+                                                            <span class="price">
+                                                                <script>
+                                                                    document.write({{product.price}} * ((100 - {{product.discount}}) / 100));
+                                                                </script>
+                                                            </span>
+                                                            &nbsp;&nbsp;
+                                                            <small class="old-price">{{product.price}}</small>
+                                                            {%endif%}
+                                                        </h4>
+                                                        <p class="text-success">
+                                                            <i class="fa fa-credit-card"></i>
+                                                            12x or 5x $ 5.00</p>
+                                                        <p class="mb-0">
+                                                            <i class="fa fa-truck"></i>
+                                                            Delivery in all territory</p>
+                                                        <div class="text-muted mb-2">
+                                                            <small>know more about delivery time and shipping forms</small>
+                                                        </div>
+                                                        <label for="quant">Quantity</label>
+                                                        <input
+                                                            type="number"
+                                                            name="quantity"
+                                                            min="1"
+                                                            id="quant"
+                                                            class="form-control mb-5 input-lg"
+                                                            placeholder="Choose the quantity">
+                                                        <button class="btn btn-primary btn-lg btn-block">Buy Now</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </main>
+                            <script src="{% static 'js/product.js'%}"></script>
+
+                            {%endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            

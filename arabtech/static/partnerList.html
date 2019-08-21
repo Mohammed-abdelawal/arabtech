@@ -1,0 +1,44 @@
+{%extends 'base.html'%}
+
+{%load static%}
+
+
+    {% block page%}
+
+
+	<br><br><br><br>
+
+	<h2 style="text-align: center"> Our Partners </h2>
+
+	<section>
+	{%for i in partners%}
+	
+	
+		<div class="container py-3">
+		  <div class="card">
+			<div class="row ">
+			  <div class="col-md-3">
+				  <img src="{{i.logo.url}}" class="w-100">
+				</div>
+				<div class="col-md-8 px-3" style="padding: 20">
+				  <div class="card-block px-3">
+					<h4 class="card-title"><a href="{% url 'partner' i.name %}">{{i.name}}</a></h4>
+					<p class="card-text">- Our Partner in {{i.field}} </p>
+					<p class="card-text">{{i.desc}}</p>
+					<a style="margin-bottom: 10px" href="{{i.site}}" target="blank" class="btn btn-outline-primary">{{i.name}} Online</a>
+				</div>
+				</div>
+	  
+			  </div>
+			</div>
+		  </div>
+		</div>
+	
+	{%endfor%}
+	
+</section>
+	
+	
+	
+	
+{%endblock%}

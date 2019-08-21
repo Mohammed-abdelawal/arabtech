@@ -1,0 +1,32 @@
+<div class="cart-List">
+    <div class="modal-header">
+        <h5 class="modal-title"> You Cart </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" >&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+    <ul class="list-group">
+        {% if cart.0 %}
+        {% for cartItem in cart %}
+        <li class="list-group-item d-flex align-items-center" style="transition: width 2s;">
+            <img src="{{cartItem.product.pic1.url}}" height="120px" width="120px" >
+             &nbsp; <a href="{% url 'product' cartItem.product.name %}" class="p-2" ><span> {{cartItem.product.name}} </span></a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button onclick="delete_item({{cartItem.pk}})" class="btn btn-outline-danger float-right">Delete</button>
+        </li> 
+        {%endfor%}
+        {%else%}
+        <li>
+            <span style="color: #101010"> You don't have any products in Cart </span>
+        </li>
+        {%endif%}
+    </ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
+<button class="btn btn-primary"onclick="cart_order()"> Order Now </button>
+<button class="btn btn-danger" onclick="delete_all()"> Delete Cart </button>
+
+</div>
+</div>

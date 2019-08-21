@@ -1,0 +1,131 @@
+{%extends 'base.html'%}
+{% load crispy_forms_tags %}
+{%load static%}
+
+    {% block page%}
+    <div class="tabs-container" style="margin:auto;margin-top: 90px; padding:15px;border: 1px #333 solid;border-radius: 5px; width:76%">
+            <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <div class="m-auto"></div>
+            <div class="m-auto"></div>
+            <a class="m-auto nav-item nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+            <a class="m-auto nav-item nav-link" id="v-pills-wishlist-tab" data-toggle="pill" href="#v-pills-wishlist" role="tab" aria-controls="v-pills-wishlist" aria-selected="false">WishList</a>
+            <a class="m-auto nav-item nav-link" id="v-pills-invoices-tab" data-toggle="pill" href="#v-pills-invoices" role="tab" aria-controls="v-pills-invoices" aria-selected="false">Invoices</a>
+            <a class="m-auto nav-item nav-link" id="v-pills-orders-tab" data-toggle="pill" href="#v-pills-orders" role="tab" aria-controls="v-pills-orders" aria-selected="false">Orders & Services</a>
+            <div class="m-auto"></div>
+            <div class="m-auto"></div>
+        </div></nav>
+          <div class="tab-content" id="v-pills-tabContent" style="margin-top: 20px">
+            <div class="m-auto tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"><div   id="serviceform">
+                    <form class="form" enctype="multipart/form-data" method="POST" >
+                    <h2 class=" form-title" style="text-align: center">Edit Profile</h2>
+                    {% csrf_token %}
+                    <div class="form-group ">
+                        <div class="form-row col-md-10">
+                          <div class="m-auto">
+                            {{ userForm.first_name|as_crispy_field }}
+                        </div>
+                        <div class="m-auto">
+                          {{ userForm.last_name|as_crispy_field }}
+                        </div></div>
+                        <div class="form-row col-md-10 ">
+                            <div class="m-auto">
+                          {{ userForm.email|as_crispy_field }}
+                        </div>
+                        <div class="m-auto">
+                          {{ profileForm.job|as_crispy_field }}
+                        </div></div>
+                        <div class="form-row col-md-11 ">
+                            <div class="m-auto">
+                            {{ profileForm.pic|as_crispy_field }}
+                        </div>
+                            <div class="m-auto">
+                                {{ profileForm.organization|as_crispy_field }}
+                                </div>
+                        </div>
+                              <div class="form-row col-md-10 m-auto">
+                                {{ profileForm.about|as_crispy_field }}
+                              </div>
+                              <div class="form-row col-lg-10 m-auto">
+                                  {{ profileForm.phone|as_crispy_field }}
+                                
+                                </div>
+                                <div class="form-row col-md-9 ">
+                                    <div class="m-auto">
+                                    {{ profileForm.Gender|as_crispy_field }}
+                                </div>
+                                <div class="m-auto">
+                                    {{ profileForm.birthdate|as_crispy_field }}
+                                </div>
+                                </div>
+                    <div class="form-row col-md-10 m-auto">
+                        {{ profileForm.address|as_crispy_field }}
+                      </div>
+                    <br/>
+                    <div class="form-row col-md-10 mb-0">
+                                    <input class=" btn btn-info btn-form profile-form-submit" width="130px" type="submit" value="Update">
+                    </div></div>
+                </form>
+            </div></div>
+            <div class="m-auto tab-pane fade" id="v-pills-wishlist" role="tabpanel" aria-labelledby="v-pills-wishlist-tab">
+                {%if wishlist.0 %}
+                <h2 class=" form-title">WishList :</h2>
+                <table style="width:70%; margin:auto ">
+                    <tr style="border-bottom: 1px #3333 solid ;">
+                        <th >Product name</th>
+                        <th>Category</th>
+                    </tr>
+                {%for i in wishlist%}
+                            <tr style="padding:12px; border-bottom: 1px #3333 solid ;">
+                                    <td>{{i.product.name}}</td>
+                                    <td>{{i.product.category}}</td>
+                
+                </tr>
+                    
+                {%endfor%}
+                </table>
+                {%else%}&Implies; 
+                <span style="color: #101010"> see our <a href="{% url 'productall'%}"> products</a> and add some in your wishlist to get offers </span>
+                {%endif%}
+            </div>
+            <div class="m-auto tab-pane fade" id="v-pills-invoices" role="tabpanel" aria-labelledby="v-pills-invoices-tab">
+                
+                    {%if invoices.0 %}
+                    <h2 class=" form-title m-auto" style="text-align: center;">Invoices </h2>
+                    <table style="width:70%; margin:auto; font-size: 120% ">
+                        <tr style="border-bottom: 1px #3333 solid ;">
+                            <th > ID </th>
+                            <th> TIME </th>
+                            <th> STATUS </th>
+                        </tr>
+                {%for invoice in invoices%}
+                <tr  onclick="get_invoice({{invoice.id}})" style="padding-bottom:16px; padding-top:16px; border-bottom: 1px #3333 solid ;">
+                    <td>{{invoice.id}}</td>
+                    <td>{{invoice.record}}</td>
+                    <td>{{invoice.get_status}}</td>
+                </tr>
+            {%endfor%}
+            </table>
+
+            {%else%}
+            &Implies; 
+            <span style="color: #101010"> see our <a href="{% url 'productall'%}"> products</a> and add some in your cart and order it </span>
+            
+            {%endif%}
+            
+            </div>
+            <div class="m-auto tab-pane fade" id="v-pills-orders" role="tabpanel" aria-labelledby="v-pills-orders-tab">
+                
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/profile.js'%}"></script>
+    <div class="modal fade" id="invoice">
+            <div class="modal-dialog" style="max-width:700px">
+              <div class="modal-content">
+                
+              </div>
+            </div>
+          </div>
+{%endblock%}
+

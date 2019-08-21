@@ -1,0 +1,188 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+	<link rel="icon" href="{% static 'img/Fevicon.png'%}" type="image/png">
+
+  <link rel="stylesheet" href="{% static 'vendors/bootstrap/bootstrap.min.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/fontawesome/css/all.min.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/themify-icons/themify-icons.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/linericon/style.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.theme.default.min.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/owl-carousel/owl.carousel.min.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/flat-icon/font/flaticon.css'%}">
+  <link rel="stylesheet" href="{% static 'vendors/nice-select/nice-select.css'%}">
+
+  <link rel="stylesheet" href="{% static 'css/style.css'%}">
+  {%block style%}{%endblock%}
+</head>
+<body class="bg-shape">
+
+  <!--================ Header Menu Area start =================-->
+  <header class="header_area">
+    <div class="main_menu">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container box_1620">
+          <a class="navbar-brand logo_h" href="{% url 'home' %}"><img src="{% static 'img/logo.png'%}" alt=""></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+            <ul class="nav navbar-nav menu_nav justify-content-end">
+              <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li> 
+              <li class="nav-item"><a class="nav-link" href="{% url 'productall' %}">Products</a>
+              <li class="nav-item submenu dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false">Partners</a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'partnerall' %}">All</a></li> 
+                  {% for partner in partner_name%}
+                  <li class="nav-item"><a class="nav-link" href="{% url 'partner' partner %}">{{partner}}</a></li>  
+                  {%endfor%}               
+                </ul>
+							</li>
+
+              <li class="nav-item submenu dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false">Categories</a>
+                <ul class="dropdown-menu">
+                  {% for category in category_name%}
+                  <li class="nav-item"><a class="nav-link" href="{% url 'category' category %}">{{category}}</a></li>  
+                  {%endfor%}               
+                </ul>
+                </li>              
+                <li class="nav-item submenu dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                    aria-expanded="false">Pages</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'services' %}">Our Services</a>
+                    {%if user.is_authenticated%}
+                    <li class="nav-item"><a class="nav-link show-cart" href="#cart">Cart</a></li>  
+                    {%endif%}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>  
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About US</a></li>  
+                  </ul>
+                </li>
+    
+              <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+
+            <div class="nav-right text-center text-lg-right py-4 py-lg-0 nav-item">
+              {% if user.is_authenticated %}
+              Hello <a class="" href="{% url 'profile' user.username%}"> {{user.username}}</a>
+              |  <a href="{% url 'logout'%}" class="btn btn-outline-danger btn-sm">Logout</a>
+              {%else%}
+              <a href="{% url 'register' %}">Register </a> | <a href="{%url 'login' %}"> Login</a>
+              {%endif%}
+            </div>
+          </div> 
+        </div>
+      </nav>
+    </div>
+  </header>
+  <!--================Header Menu Area =================-->
+
+  <br/>
+  <!-- Page container --> 
+  {% block page %} {% endblock %}
+  <br/>
+  <div class="modal fade" id="cart">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          
+        </div>
+      </div>
+    </div>
+
+  <!-- ================ start footer Area ================= -->
+  <footer class="footer-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3  col-md-6 col-sm-6">
+          <div class="single-footer-widget">
+            <h6>About Us</h6>
+            <p>
+              The best Medical equipments provider in upper egypt, 
+              We participated in the processing of the largest private hospitals in Sohag.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="single-footer-widget">
+            <h6>Navigation Links</h6>
+            <div class="row">
+              <div class="col">
+                <ul>
+                  <li><a href="{% url 'home' %}">Home</a></li>
+                  <li><a href="{% url 'productall' %}">Products</a></li>
+                  <li><a href="{% url 'services' %}">Services</a></li>
+                  <li><a href="{% url 'partnerall' %}">Partners</a></li>
+                </ul>
+              </div>
+              <div class="col">
+                <ul>
+                  <li><a href="{% url 'team' %}">Team</a></li>
+                  <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+              </div>										
+            </div>							
+          </div>
+        </div>							
+        <div class="col-lg-3  col-md-6 col-sm-6">
+          <div class="single-footer-widget">
+            <h6>Newsletter</h6>
+            <p>
+              To be first one who know about : our offers, New products.
+            </p>								
+            <div id="mc_embed_signup">
+              <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscription relative">
+                <div class="input-group d-flex flex-row">
+                  <input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '" required="" type="email">
+                  <button class="btn bb-btn"><span class="lnr lnr-location"></span></button>		
+                </div>									
+                <div class="mt-10 info"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3  col-md-6 col-sm-6">
+          <div class="single-footer-widget mail-chimp">
+              <h6>Follow Us</h6>
+              <div class=" fsocial col-lg-4 col-sm-12 text-lg-right">
+                  <a class="fface" href="#"><i class="fab fa-facebook-square "></i>&nbsp;&nbsp;FaceBook</a><br>
+                  <a class="fyoutube" href="#"><i class="fab fa-youtube "></i>&nbsp;YouTube</a>
+                </div>
+          </div>
+        </div>						
+      </div>
+
+      <div class="footer-bottom">
+        <div class="row align-items-center">
+          <p class="col-lg-10 col-sm-12 footer-text m-auto text-center text-lg-left"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved to -<span style="font-weight: 700"> Arab Tech </span>- for medical equipments || Developer : <i class="fa fa-cog fa-spin fa-fw text-info"></i>
+<a href="https://www.facebook.com/MohammedAbdelawalDeveloper">Mohammed Abdelawal</a></p>
+          
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- ================ End footer Area ================= -->
+
+
+  <script src="{% static 'vendors/jquery/jquery-3.2.1.min.js'%}"></script>
+  <script src="{% static 'vendors/bootstrap/bootstrap.bundle.min.js'%}"></script>
+  <script src="{% static 'vendors/owl-carousel/owl.carousel.min.js'%}"></script>
+  <script src="{% static 'vendors/nice-select/jquery.nice-select.min.js'%}"></script>
+  <script src="{% static 'js/jquery.ajaxchimp.min.js'%}"></script>
+  <script src="{% static 'js/mail-script.js'%}"></script>
+  <script src="{% static 'js/main.js'%}"></script>
+  <script src="{% static 'js/cart.js'%}"></script>
+</body>
+</html>

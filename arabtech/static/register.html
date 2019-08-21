@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+{% load crispy_forms_tags %}
+{%load static%}
+
+    {% block page%}
+    
+    {% if user.is_authenticated %}
+    <div class="formlogin" style="margin-top: 90px; padding:20px" >
+    you already login as {{user.username}}, are you want to <a href="{% url 'logout' %}">logout</a>
+    </div>
+        {% else %}
+        <div style="margin-top: 90px; padding:10px;border: 1px #333 solid;border-radius: 5px; width:70%"  id="serviceform">
+            <form class="form" enctype="multipart/form-data" method="POST" >
+            <h2 class=" form-title" style="text-align: center">Register new user</h2>
+            {% csrf_token %}
+            {{ userForm|crispy }}
+            {{ profileForm|crispy }}
+            <br/>
+            <input class=" btn btn-info btn-form" width="130px" type="submit" value="Create">
+        </form>
+    </div>
+        {%endif%}
+
+        {%endblock%}
